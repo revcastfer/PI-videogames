@@ -1,9 +1,10 @@
 require('dotenv').config();
+const axios = require("axios")
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
-  DB_USER, DB_PASSWORD, DB_HOST,
+  DB_USER, DB_PASSWORD, DB_HOST,API_KEY
 } = process.env;
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`, {
@@ -30,11 +31,36 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { videogame } = sequelize.models;
-const { genres } = sequelize.models;
+const { Videogame } = sequelize.models;
+const { Genres } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+Videogame.belongsToMany(Genres,{through: 'VideogamesGenres'});
+Genres.belongsToMany(Videogame,{through: 'VideogamesGenres'});
+
+
+
+
+
+let  startBD=async()=>{
+  axios("https://api.rawg.io/api/genres?key="+API_KEY)
+  .then(datos=>datos.data.results.forEach(elemento=>{Genres.create({ name:elemento.name})}))
+  .catch(error=>console.log(error));
+
+
+  const genresBd= await Genres.findAll();
+  console.log(genresBd);
+
+//axios("https://api.rawg.io/api/games?key="API_KEY)
+//.then(datos=>{datos.data    })
+//.catch(error=>console.log(error))
+
+
+};
+
+startBD();
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
