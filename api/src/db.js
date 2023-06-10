@@ -48,15 +48,7 @@ let  startBD=async()=>{
   .then(datos=>datos.data.results.forEach(elemento=>{Genres.create({ name:elemento.name})}))
   .catch(error=>console.log(error));
 
-
   const genresBd= await Genres.findAll();
-  console.log(genresBd);
-
-//axios("https://api.rawg.io/api/games?key="API_KEY)
-//.then(datos=>{datos.data    })
-//.catch(error=>console.log(error))
-
-
 };
 
 startBD();
