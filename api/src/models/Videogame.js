@@ -9,7 +9,6 @@ module.exports = (sequelize) => {
     plataforms:{type:DataTypes.STRING,allowNull:false},
     image:{type:DataTypes.STRING,allowNull:false},
     date:{type:DataTypes.DATEONLY,allowNull:false},
-    rating:{type:DataTypes.DOUBLE,allowNull:false},
-
-  });
+    rating:{type:DataTypes.DOUBLE,allowNull:false},  
+},{ timestamps: false });
 };

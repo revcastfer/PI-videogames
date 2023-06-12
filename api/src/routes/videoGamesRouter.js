@@ -4,7 +4,7 @@ const { Router } = require('express');
 let videoGamesRouter=Router();
 
  videoGamesRouter.get("/", getAllVideogamesHandler);
- videoGamesRouter.get("/:id", getAllVideogamesHandler);
+ videoGamesRouter.get("/:id", searchByIdHandler);
 
 
 

@@ -1,12 +1,12 @@
 const {getAllVideogames,searchById}=require("../controllers/videoGamesControllers.js")
 
-let getAllVideogamesHandler=(req,res)=>{
+let getAllVideogamesHandler=async(req,res)=>{
 
 try{
-let respuesta=getAllVideogames();
+let respuesta=await getAllVideogames();
 res.status(200).send(respuesta)	
 }
-catch(error){res.status(500).send(error)}
+catch(error){res.status(500).json(error)}
 
 };
 
@@ -14,13 +14,13 @@ catch(error){res.status(500).send(error)}
 
 
 
-let searchByIdHandler=(req,res)=>{
-
+let searchByIdHandler=async(req,res)=>{
+let id=req.params.id;
 try{
-let respuesta=searchById(req.id);
+let respuesta=await searchById(id);
 res.status(200).send(respuesta)	
 }
-catch(error){res.status(500).send(error)}
+catch(error){res.status(500).json(error)}
 
 }
 

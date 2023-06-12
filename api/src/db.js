@@ -48,7 +48,7 @@ let  startBD=async()=>{
   .then(datos=>datos.data.results.forEach(elemento=>{Genres.create({ name:elemento.name})}))
   .catch(error=>console.log(error));
 
-  const genresBd= await Genres.findAll();
+  
 };
 
 startBD();
