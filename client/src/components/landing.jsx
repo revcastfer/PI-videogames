@@ -36,6 +36,7 @@ const InputStyle=styled.input`
 border-radius:25px;
 display:block;
 border:none;
+margin:80px 10px 10px 10px
  `;
 
 
@@ -44,6 +45,7 @@ display:block;
 border-radius:25px;
 width:90%;
 border:none;
+margin:0px 10px 20px 10px
   `;
 
 export default function Landing(){
@@ -62,8 +64,8 @@ return(
 	<Titulo></Titulo>
 
 	<form>
-		<InputStyle id="inputUser" type="text" style={{margin:"80px 10px 10px 10px"}}/>
-		<LoguinButton id="buttonLogin" style={{margin:"0px 10px 20px 10px"}}>ingresar</LoguinButton>
+		<InputStyle id="inputUser" type="text"  placeholder="nombre usuario"/>
+		<LoguinButton id="buttonLogin" >ingresar</LoguinButton>
 	</form>
 	</PanelLoguin>
 <UserImage src={user} alt="imagen de usuario" onClick={displayPanel} style={{right:"25px",top:"15px"}}/>
