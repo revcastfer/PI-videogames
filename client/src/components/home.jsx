@@ -7,7 +7,7 @@ import {useState, useEffect } from "react";
 
 const Fondo=styled.div`
 background-image:url(${fondoHome});
-height:100%;
+
 background-attachment:fixed;
 background-size:cover
  `;
@@ -27,7 +27,7 @@ axios("http://localhost:3001/videogames/")
 },[])
 
 return(
-<Fondo>
+<Fondo style={{height:data?"100%":"100vh"}}>
 <SearchBar />
 {data?<Cards data={data} />:<div>cargando</div>}
 

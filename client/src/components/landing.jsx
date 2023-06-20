@@ -1,6 +1,7 @@
 import imgLanding from "../imgs/imgLanding.jpg";
 import user from "../imgs/user.png";
 import styled from "styled-components";
+import {useNavigate} from "react-router-dom"
 
 const Titulo=styled.label`
 
@@ -49,11 +50,11 @@ margin:0px 10px 20px 10px
   `;
 
 export default function Landing(){
+const navigate=useNavigate();
+let intoApp=()=>{navigate("Home" )}
 
-let displayPanel=()=>{
-	
+let displayPanel=()=>{	
 let panel=document.getElementById("panel");
-
  panel.style.display===""||panel.style.display==="none"?panel.style.display="block":panel.style.display="none"
 };
 
@@ -65,7 +66,7 @@ return(
 
 	<form>
 		<InputStyle id="inputUser" type="text"  placeholder="nombre usuario"/>
-		<LoguinButton id="buttonLogin" >ingresar</LoguinButton>
+		<LoguinButton id="buttonLogin" onClick={intoApp} >ingresar</LoguinButton>
 	</form>
 	</PanelLoguin>
 <UserImage src={user} alt="imagen de usuario" onClick={displayPanel} style={{right:"25px",top:"15px"}}/>
