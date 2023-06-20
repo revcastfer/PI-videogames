@@ -1,24 +1,35 @@
 import styled from "styled-components";
-import {useState, useEffect } from "react";
 import axios from "axios";
 
 const Container=styled.div`
-color:white `;
+color:white;
+height:135px;
+display:flex;
 
-export default function Card(){
-const [data,setData]=useState([]);
 
-useEffect(()=>{
-axios("http://localhost:3001/videogames/")
-.then(datos=>datos.data)
-.then(datos=>{setData(datos[0]);console.log(data)})
+  `;
 
-},[])
+const Image=styled.img`
+
+ `;
+
+ const Datos=styled.div`
+color:white;
+justify-content:center `;
+
+const Genres=styled.div`
+ color:yellow`;
+
+export default function Card(props){
 
 
 return(
 <Container>
-	card
+	
+	<Image src={props.videogame.img}/>
+	 <Datos><div>{props.videogame.name}</div>
+	 <Genres>{props.videogame.genres.map(genre=><div>{genre}</div>)}</Genres>
+	 </Datos> 
 </Container>
 
 	)}
