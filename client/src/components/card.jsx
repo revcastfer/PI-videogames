@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import axios from "axios";
+import{NavLink} from "react-router-dom"
+
 
 const Container=styled.div`
 color:white;
@@ -27,7 +28,7 @@ return(
 <Container>
 	
 	<Image src={props.videogame.img}/>
-	 <Datos><div>{props.videogame.name}</div>
+	 <Datos><div><NavLink to={`/Detail/${props.videogame.id}`}>{props.videogame.name}</NavLink></div>
 	 <Genres>{props.videogame.genres.map(genre=><div>{genre}</div>)}</Genres>
 	 </Datos> 
 </Container>

@@ -1,9 +1,10 @@
 import styled from "styled-components"
 import fondoHome from"../imgs/fondoHome.jpg"
-import SearchBar from "./searchBar.jsx"
+import NavBar from "./navbar.jsx"
 import Cards from "./cards.jsx"
 import axios from "axios"
 import {useState, useEffect } from "react";
+
 
 const Fondo=styled.div`
 background-image:url(${fondoHome});
@@ -28,7 +29,7 @@ axios("http://localhost:3001/videogames/")
 
 return(
 <Fondo style={{height:data?"100%":"100vh"}}>
-<SearchBar />
+<NavBar />
 {data?<Cards data={data} />:<div>cargando</div>}
 
 

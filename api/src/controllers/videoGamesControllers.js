@@ -34,7 +34,7 @@ const findBd=await Videogame.findByPk(id);
 
 if(result.length>0){return result}
    else 
-if (findBd){return findBd }else return "no se encontro el videogame ";
+if (findBd){return findBd }else throw new Error("no se encontro el videogame");
 }
 
 
