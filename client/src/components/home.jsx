@@ -3,7 +3,9 @@ import fondoHome from"../imgs/fondoHome.jpg"
 import NavBar from "./navbar.jsx"
 import Cards from "./cards.jsx"
 import axios from "axios"
+import {NavLink} from "react-router-dom"
 import {useState, useEffect } from "react";
+import { useSelector } from 'react-redux'
 
 
 const Fondo=styled.div`
@@ -19,17 +21,12 @@ background-size:cover
 
 
 export default function Home(){
-let [data,setData]=useState();
-useEffect(()=>{
-axios("http://localhost:3001/videogames/")
-.then(datos=>datos.data)
-.then(data=>setData(data))
-
-},[])
+let data=useSelector(state=>state.data)
 
 return(
 <Fondo style={{height:data?"100%":"100vh"}}>
 <NavBar />
+<NavLink to="/Formulario">CREAR VIDEOJUEGO</NavLink>
 {data?<Cards data={data} />:<div>cargando</div>}
 
 

@@ -2,7 +2,8 @@ import imgLanding from "../imgs/imgLanding.jpg";
 import user from "../imgs/user.png";
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom"
-
+import axios from "axios"
+import {useDispatch} from 'react-redux'
 const Titulo=styled.label`
 
  `;
@@ -52,11 +53,26 @@ margin:0px 10px 20px 10px
 export default function Landing(){
 const navigate=useNavigate();
 let intoApp=()=>{navigate("Home" )}
+let dispatch=useDispatch();
+
+
+let cargaDatos=async()=>{
+  let dataApi=await axios("http://localhost:3001/videogames/");
+  let data=dataApi.data;
+  let dataApigenres=await axios("http://localhost:3001/genres");
+  let genres=dataApigenres.data;
+
+
+  dispatch({type:"login",payload:data});
+  dispatch({type:"loginGenres",payload:genres})
+};
 
 let displayPanel=()=>{	
 let panel=document.getElementById("panel");
+cargaDatos();
  panel.style.display===""||panel.style.display==="none"?panel.style.display="block":panel.style.display="none"
 };
+
 
 
 return(
