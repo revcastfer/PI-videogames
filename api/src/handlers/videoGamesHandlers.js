@@ -35,9 +35,9 @@ catch(error){res.status(500).json(error)}
 
 
 let postVideogameHandler=async(req,res)=>{
-let {nombre,img,plataformas,descripcion,fecha,rating, generos}=req.body;
+let {nombre,descripcion,plataformas,img,fecha,rating, generos}=req.body;
 try{ 
-	let respuesta= await postVideogame(nombre,img,plataformas,descripcion,fecha,rating, generos);
+	let respuesta= await postVideogame(nombre,descripcion,plataformas,img,fecha,rating, generos);
 	res.status(200).send(respuesta) }
 catch(error){res.status(500).send(error)}
 
