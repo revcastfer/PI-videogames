@@ -47,7 +47,7 @@ let  startBD=async()=>{
   axios("https://api.rawg.io/api/genres?key="+API_KEY)
   .then(datos=>datos.data.results.forEach(elemento=>{Genres.create({ name:elemento.name})}))
   .catch(error=>console.log(error));
-
+console.log("asigna genres")
   
 };
 

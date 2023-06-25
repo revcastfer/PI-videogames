@@ -58,8 +58,8 @@ let dispatch=useDispatch();
 
 let cargaDatos=async()=>{
   let dataApi=await axios("http://localhost:3001/videogames/");
-  let data=dataApi.data;
   let dataApigenres=await axios("http://localhost:3001/genres");
+  let data=dataApi.data;  
   let genres=dataApigenres.data;
 
 

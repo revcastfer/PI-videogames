@@ -54,18 +54,18 @@ if(result||findBd[0]!=null){return result.concat(findBd)}else return "sin datos 
 
 
 let postVideogame=async(nombre,descripcion,plataformas,img,fecha,rating, generos)=>{
- if( nombre&&descripcion&&plataformas&&img&&fecha&&rating&&generos)
+ if( nombre&&descripcion&&plataformas&&img&&fecha&&rating&&generos){console.log(nombre,descripcion,plataformas,img,fecha,rating, generos)}
 
 
-try{
-let nuevoVideogame= await Videogame.create({name:nombre,description:descripcion,plataforms:plataformas,image:img,date:fecha,rating:rating });
-let arrayGeneros=generos.split(",");
+//try{
+//let nuevoVideogame= await Videogame.create({name:nombre,description:descripcion,plataforms:plataformas,image:img,date:fecha,rating:rating });
+//let arrayGeneros=generos.split(",");
 
-arrayGeneros.forEach( async genero=>{
-    let finder = await Genres.findOne({where:{name:genero}});   
-    nuevoVideogame.addCountry(finder) })
-}
-catch(error){throw new Error(error)}
+//arrayGeneros.forEach( async genero=>{
+//    let finder = await Genres.findOne({where:{name:genero}});   
+//    nuevoVideogame.addCountry(finder) })
+//}
+//catch(error){throw new Error(error)}
 
 }
 module.exports={getAllVideogames,searchById,searchByName,postVideogame}

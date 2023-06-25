@@ -5,7 +5,7 @@ let videoGamesRouter=Router();
 
  videoGamesRouter.get("/", getAllVideogamesHandler);
  videoGamesRouter.get("/:id", searchByIdHandler);
- videoGamesRouter.post("",postVideogameHandler );
+ videoGamesRouter.post("/",postVideogameHandler );
 
 
 
