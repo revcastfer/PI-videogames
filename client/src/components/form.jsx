@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import{NavLink} from "react-router-dom";
+import{NavLink,useNavigate} from "react-router-dom";
 import { useSelector } from 'react-redux';
-import {useState} from "react"
+import {useState,useEffect} from "react"
+import {useDispatch} from 'react-redux'
 import axios from "axios"
+
 
 const Marco=styled.div`
  `;
@@ -41,25 +43,50 @@ let data=useSelector(state=>state.data);
 let genres=useSelector(state=>state.genres);
 let [genresSelected,setGenresSelected]=useState([]);
 let [verification,setVerification]=useState({nombre:false,descripcion:false,plataforma:false,img:false,date:false,clasificacion:false, genres:false})
-
+let dispatch=useDispatch();
+let navigate=useNavigate();
 let plataformas=[];
 data.map(ele=>{ele.plataforms.forEach(pltf=>{if (!plataformas.includes(pltf)){plataformas.push(pltf)}})});
 
+let cargar=async()=>{
+    console.log("cargando datos");
+  let dataApi=await axios("http://localhost:3001/videogames/");  
+  let data=dataApi.data; 
+  dispatch({type:"login",payload:data});
+  alert("datos enviados");
+};
+
+let envioDatos=async()=>{
+    try{
+        let rpta=await axios.post ("http://localhost:3001/videogames/",{nombre:document.getElementById("nombre").value ,
+                                                 descripcion:document.getElementById("descripcion").value,
+                                                 plataformas:document.getElementById("plataforma").value,
+                                                 img:document.getElementById("img").value,
+                                                 fecha:document.getElementById("date").value,
+                                                 rating:document.getElementById("clasificacion").value,
+                                                 generos:genresSelected}   );
+        console.log(rpta)    }
+    catch(error){console.log(error)}
+    
+}
+
 let visible=(nombre,valor)=>{document.getElementById(nombre+"Error").style.visibility=valor};
+useEffect(()=>{ 
+    if(genresSelected.length==0){
+        visible("genres","visible");setVerification({...verification,genres:false}) }
+        else{visible("genres","hidden");setVerification({...verification,genres:true})} ;
+        },[genresSelected])
 
 let addGenres=(e)=>{
 let valor=e.target.value;
 if (!genresSelected.includes(valor)){
-setGenresSelected([...genresSelected,e.target.value])};
-console.log(genresSelected);
-if(genresSelected.length==0){visible("genres","visible");setVerification({...verification,genres:false}) }else{visible("genres","hidden");setVerification({...verification,genres:true})}
+setGenresSelected([...genresSelected,e.target.value])}
 }
 
 let deleteGenre=(e)=>{   
    let newGenres=genresSelected.filter(ele=>ele!=e.target.id);
-   setGenresSelected(newGenres);
-   console.log(genresSelected);
-   if(genresSelected.length==0){setVerification({...verification,genres:false})}
+     setGenresSelected(newGenres);
+     if(genresSelected.length==0){setVerification({...verification,genres:false})}
 }
 
 let validate=(e)=>{
@@ -74,7 +101,7 @@ case "clasificacion":
   if(elemento.value>0 && elemento.value<=5){visible(elemento.id,"hidden");setVerification({...verification,[elemento.id]:true})}else {visible(elemento.id,"visible");setVerification({...verification,[elemento.id]:false})}
 }  }
 
-let submit=(e)=>{
+let submit=async (e)=>{
 e.preventDefault();
 let ready=Object.keys(verification);
 
@@ -86,17 +113,10 @@ let indicador=0;
 
 
 if(readyForSend()){
-try{
-axios.post ("http://localhost:3001/videogames/",{nombre:document.getElementById("nombre").value ,
-                                                 descripcion:document.getElementById("descripcion").value,
-                                                 plataformas:document.getElementById("plataforma").value,
-                                                 img:document.getElementById("img").value,
-                                                 fecha:document.getElementById("date").value,
-                                                 rating:document.getElementById("clasificacion").value,
-                                                 generos:genresSelected}   )
-}
-catch(error){console.log(error)}
 
+await envioDatos();
+await cargar();
+navigate("/Home" )
 } }
 
 

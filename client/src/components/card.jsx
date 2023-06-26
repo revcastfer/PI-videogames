@@ -23,13 +23,13 @@ const Genres=styled.div`
 
 export default function Card(props){
 
-
+let generos=props.videogame.genres;
 return(
 <Container>
 	
 	<Image src={props.videogame.img}/>
 	 <Datos><div><NavLink to={`/Detail/${props.videogame.id}`}>{props.videogame.name}</NavLink></div>
-	 <Genres>{props.videogame.genres.map(genre=><div>{genre}</div>)}</Genres>
+	 {generos?<Genres>{generos.map(genre=><div>{genre}</div>)}</Genres>:null}
 	 </Datos> 
 </Container>
 

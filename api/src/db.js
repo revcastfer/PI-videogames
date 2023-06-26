@@ -50,7 +50,6 @@ let  startBD=async()=>{
 console.log("asigna genres")
   
 };
-
 startBD();
 
 

@@ -7,7 +7,11 @@ import {useDispatch} from 'react-redux'
 const Titulo=styled.label`
 
  `;
-
+const Carga=styled.div`
+font-size:100px;
+color:yellow;
+visibility:hidden
+ `;
 const FondoLanding=styled.div`
 height:100vh;
 background-image:url(${imgLanding});
@@ -52,24 +56,28 @@ margin:0px 10px 20px 10px
 
 export default function Landing(){
 const navigate=useNavigate();
-let intoApp=()=>{navigate("Home" )}
 let dispatch=useDispatch();
 
 
 let cargaDatos=async()=>{
+  document.getElementById("carga").style.visibility="visible";
   let dataApi=await axios("http://localhost:3001/videogames/");
   let dataApigenres=await axios("http://localhost:3001/genres");
   let data=dataApi.data;  
   let genres=dataApigenres.data;
 
 
-  dispatch({type:"login",payload:data});
-  dispatch({type:"loginGenres",payload:genres})
+  await dispatch({type:"login",payload:data});
+  await dispatch({type:"loginGenres",payload:genres})
 };
 
-let displayPanel=()=>{	
+
+let intoApp=async(e)=>{e.preventDefault();await cargaDatos();navigate("/Home")}
+
+
+
+let displayPanel=async()=>{	
 let panel=document.getElementById("panel");
-cargaDatos();
  panel.style.display===""||panel.style.display==="none"?panel.style.display="block":panel.style.display="none"
 };
 
@@ -80,11 +88,12 @@ return(
 	<PanelLoguin id="panel">
 	<Titulo></Titulo>
 
-	<form>
+	<form onSubmit={intoApp}>
 		<InputStyle id="inputUser" type="text"  placeholder="nombre usuario"/>
-		<LoguinButton id="buttonLogin" onClick={intoApp} >ingresar</LoguinButton>
+		<LoguinButton id="buttonLogin" type="submit">ingresar</LoguinButton>
 	</form>
 	</PanelLoguin>
+  <Carga id="carga"><i>Cargando.....</i></Carga>
 <UserImage src={user} alt="imagen de usuario" onClick={displayPanel} style={{right:"25px",top:"15px"}}/>
 </FondoLanding>
 	)}

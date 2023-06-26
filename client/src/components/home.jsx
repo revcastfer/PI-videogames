@@ -27,7 +27,7 @@ return(
 <Fondo style={{height:data?"100%":"100vh"}}>
 <NavBar />
 <NavLink to="/Formulario">CREAR VIDEOJUEGO</NavLink>
-{data?<Cards data={data} />:<div>cargando</div>}
+{data.length>1?<Cards data={data} />:<div>cargando</div>}
 
 
 
